@@ -1,0 +1,59 @@
+@import './global-style.scss';
+#dusky-analytics-wrap {
+    * {
+        box-sizing: border-box;
+    }
+
+    .dusky-full-header {
+        background: #fff;
+        padding: 15px 30px;
+        margin: 0 0 25px -20px;
+        position: sticky;
+        width: calc(100% + 20px);
+        top: 32px;
+
+        .header-brand {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 15px;
+
+            svg {
+                max-width: 45px;
+                height: auto;
+            }
+
+            .dusky-brand-name {
+                font-size: 20px;
+                line-height: 20px;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .dusky-alytic-box {
+        margin-bottom: 40px;
+
+        .dusky-alytic-title {
+            //TODO...
+        }
+
+        .dusky-alytic-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            margin-right: 25px;
+
+            .dusky-alytic-item {
+                width: 100%;
+                padding: 20px;
+                background: #fff;
+                border-radius: 10px;
+                display: flex;
+                gap: 20px;
+                justify-content: flex-start;
+                align-items: center;
+            }
+        }
+    }
+}
