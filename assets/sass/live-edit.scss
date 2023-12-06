@@ -1,0 +1,274 @@
+@import './global-style.scss';
+// Live Editor
+.dusky-live-editor-wrapper {
+    &.dusky-ignore {
+        position: fixed;
+        background: #fff;
+        width: 300px;
+        border: 2px solid #000;
+        padding: 20px 10px 20px 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+        top: var(--live-edit-sticky-top);
+        right: var(--live-edit-sticky-right);
+        z-index: 999999;
+
+        * {
+            user-select: none;
+        }
+
+        .dusky-live-edit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid $black;
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px 2px rgba($black, $opc_2);
+            margin-bottom: 20px;
+            position: relative;
+            margin-right: 10px;
+
+            .dle-template-item {
+                cursor: pointer;
+                background-color: aliceblue;
+                color: $black;
+                padding: 5px 20px;
+                border-radius: 5px;
+                margin-bottom: 5px;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: antiquewhite;
+                }
+            }
+
+            .dle-page-template {
+                position: absolute;
+                background: $white;
+                padding: 5px;
+                border: 1px solid $black;
+                border-radius: 8px;
+                top: 91%;
+                left: 22px;
+                box-shadow: 0 0 5px rgba($black, $opc_5);
+            }
+
+            .dle-select {
+                padding: 3px 5px;
+                border: 1px dashed #9a9a9a;
+                border-radius: 3px;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                min-width: 100px;
+            }
+
+            .dle-save {
+                padding: 3px 10px;
+            }
+
+            .drag-handle.dashicons.dashicons-move {
+                cursor: grab;
+
+                &.mouse-down {
+                    cursor: grabbing;
+                }
+            }
+
+            .dashicons {
+
+                &.dashicons-menu-alt,
+                &.dashicons-no-alt {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .dusky-live-edit-menu {
+            padding-right: 10px;
+            max-height: 400px;
+            overflow: auto;
+            scrollbar-width: thin;
+            scrollbar-color: $warning $primary;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: $warning;
+                border-radius: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background-color: $primary;
+            }
+
+            .dusky-live-edit-menu-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+                border: 1px solid #818181;
+                padding: 3px 5px;
+                border-radius: 5px;
+                margin-bottom: 8px;
+                cursor: pointer;
+                background: aliceblue;
+
+                &:hover {
+                    background: antiquewhite;
+                }
+
+                img {
+                    max-width: 30px;
+                    margin-right: 10px;
+                    padding: 4px;
+                }
+
+                span {
+                    flex-grow: 1;
+                    color: $black;
+                }
+
+                .dles-button-wrapper {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 5px;
+                    margin-top: 10px;
+                    background: aliceblue;
+                    padding: 10px;
+                    border-radius: 10px;
+
+                    .dles-title {
+                        margin-top: 15px;
+                    }
+
+                    .button-item {
+                        font-size: 14px;
+                        padding: 5px 10px;
+                        background: $white;
+                        color: $black;
+                        border: 1px solid $black;
+                        outline: none;
+                        transition: all 0.3s ease;
+                        border-radius: 5px;
+
+                        &.active,
+                        &:hover {
+                            background: $primary;
+                            border-color: $primary;
+                            color: $white;
+                        }
+                    }
+                }
+            }
+
+            .color-presets-wrapper {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 5px;
+
+                .color-preset svg {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+
+            .setting-field {
+                p {
+                    color: $black;
+                }
+
+                .dusky-input-wrapper {
+                    &.color-preset-group {
+                        .dusky-reset-btn {
+                            background: $warning;
+                            border-radius: 5px;
+                            border: 1px solid $warning;
+                            padding: 5px 10px;
+                            margin-left: 15px;
+                            outline: none;
+                            color: $white;
+                            font-size: 14px;
+                        }
+
+                        .custom-color-preset-wrap {
+                            color: $black;
+
+                            .color-preset-list {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 6px;
+
+                                .ddm-color-group {
+                                    &.dusky-ignore {
+                                        background: currentColor;
+                                        width: 30px;
+                                        padding: 0;
+                                        height: 30px;
+                                        outline: none;
+
+                                        &.selected {
+                                            border-color: $warning;
+                                            border-style: solid;
+                                            border-width: 3px;
+                                            box-shadow: 0 0 5px 1px $warning;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .dusky-button-group {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 5px;
+                margin-bottom: 20px;
+                background: aliceblue;
+                padding: 10px;
+                border-radius: 10px;
+                border: 1px solid #ddd;
+
+                .dusky-choose-button {
+                    background: $white;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    font-size: 14px;
+                    outline: none;
+                    border: 1px solid $black;
+                    color: $black;
+                    transition: all 0.3s ease;
+
+                    &.active,
+                    &:hover {
+                        background: $primary;
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dusky-live-editor-active {
+    user-select: none;
+}
+
+#wp-admin-bar-dusky-live_editor .ab-item {
+    display: none !important;
+}
+
+#wp-admin-bar-dusky-live_editor .dusky-leeb {
+    padding: 0 15px !important;
+    background: $primary;
+    color: $white;
+    cursor: pointer;
+}
