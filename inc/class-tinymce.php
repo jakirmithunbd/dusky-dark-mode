@@ -1,6 +1,9 @@
 <?php
 
-defined( 'ABSPATH' ) || exit();
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+// Exit if accessed directly
 
 if ( ! class_exists( 'Dusky_TinyMCE' ) ) {
     class Dusky_TinyMCE {

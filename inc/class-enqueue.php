@@ -1,6 +1,9 @@
 <?php
 
-defined( 'ABSPATH' ) or wp_die( 'Hey, what are you doing here? You silly human!' );
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 
 if ( ! class_exists( 'Dusky_Enqueue' ) ) {
     /**

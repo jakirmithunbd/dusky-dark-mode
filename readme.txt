@@ -2,7 +2,7 @@
 Contributors: wpwebdevs, jakirmithunbd
 Tags: dark, wp dark mode, dusk mode, dark mode, night mode, dark theme, dark theme, theme, color, typography
 Requires at least: 5.0
-Tested up to: 6.1
+Tested up to: 6.4
 Requires PHP: 7.0
 Stable tag: 1.0.0
 License: GPLv2 or later

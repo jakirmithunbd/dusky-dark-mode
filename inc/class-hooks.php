@@ -1,5 +1,8 @@
 <?php
-defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+// Exit if accessed directly
 
 if ( ! class_exists( 'Dusky_Hooks' ) ) {
     class Dusky_Hooks {
@@ -26,7 +29,7 @@ if ( ! class_exists( 'Dusky_Hooks' ) ) {
                         }
 
                     } );
-                    if (dusky_get_settings('flotingToggle', true) ) {
+                    if ( dusky_get_settings( 'flotingToggle', true ) ) {
                         add_action( 'wp_footer', [$this, 'render_floating_toggle'] );
                     }
                 }
@@ -47,11 +50,11 @@ if ( ! class_exists( 'Dusky_Hooks' ) ) {
 
         public function render_floating_toggle() {
             $mode = dusky_get_mode();
-            $toggleStyle = dusky_get_settings('toggleStyle', '1');
-            $toggleSize = dusky_get_settings('toggleSize', 'medium');
-            $togglePosition = dusky_get_settings('togglePosition', 'right');
+            $toggleStyle = dusky_get_settings( 'toggleStyle', '1' );
+            $toggleSize = dusky_get_settings( 'toggleSize', 'medium' );
+            $togglePosition = dusky_get_settings( 'togglePosition', 'right' );
 
-            printf('<div data-dusky_mode="%s" class="dusky-toggle-wrap dusky-floting dusky-%s dusky-active-%s dusky-toggle-style-%s dusky-toggle-%s dusky-ignore"><div class="dusky-toggle-icon"><div class="dusky-toggle-main-icon"></div></div><div class="dusky-toggle-text"><span class="dusky-dark">Dark</span><span class="dusky-light">Light</span></div></div>', esc_attr($mode), esc_attr($togglePosition), esc_attr($mode), esc_attr($toggleStyle), esc_attr($toggleSize));
+            printf( '<div data-dusky_mode="%s" class="dusky-toggle-wrap dusky-floting dusky-%s dusky-active-%s dusky-toggle-style-%s dusky-toggle-%s dusky-ignore"><div class="dusky-toggle-icon"><div class="dusky-toggle-main-icon"></div></div><div class="dusky-toggle-text"><span class="dusky-dark">Dark</span><span class="dusky-light">Light</span></div></div>', esc_attr( $mode ), esc_attr( $togglePosition ), esc_attr( $mode ), esc_attr( $toggleStyle ), esc_attr( $toggleSize ) );
         }
 
         public function add_defer_attribute( $tag, $handle ) {

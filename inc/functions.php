@@ -3,7 +3,10 @@
 /**
  * WP Dusk Dark Mode
  */
-defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+// Exit if accessed directly
 
 if ( ! function_exists( 'dusky_get_settings' ) ) {
 

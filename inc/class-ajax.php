@@ -1,5 +1,10 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+// Exit if accessed directly
+
 if ( ! class_exists( 'Dusky_Ajax' ) ) {
     class Dusky_Ajax {
 
@@ -106,7 +111,11 @@ if ( ! class_exists( 'Dusky_Ajax' ) ) {
         }
 
         // sanitize function for sanitize array and text
-        private function validate_and_sanitize( $data, $sanitization_callback ) {
+        private function validate_and_sanitize( $data, $sanitization_callback = null ) {
+
+            if (  ( isset( $data['input'] ) || isset( $data['checkbox'] ) || isset( $data['adminDarkMode'] ) ) && is_null( $sanitization_callback ) ) {
+                return $this->sanitizeDuskyData( $data );
+            }
 
             $sanitized_data = [];
             if ( $sanitization_callback === 'sanitize_text_field' ) {
@@ -121,17 +130,41 @@ if ( ! class_exists( 'Dusky_Ajax' ) ) {
             return $sanitized_data;
         }
 
+        private function sanitizeDuskyData( $data, $_sData = [] ) {
+            if ( is_array( $data ) ) {
+                foreach ( $data as $key => $value ) {
+                    if ( is_array( $value ) ) {
+                        $_sData[$key] = $this->sanitizeDuskyData( $value );
+                    } else if ( is_string( $value ) ) {
+                        $_sData[$key] = sanitize_text_field( $value );
+                    } else if ( is_bool( $value ) ) {
+                        $_sData[$key] = filter_var( $value, FILTER_VALIDATE_BOOLEAN );
+                    } else if ( is_numeric( $value ) ) {
+                        $_sData[$key] = filter_var( $value, FILTER_VALIDATE_INT );
+                    } else {
+                        $_sData[$key] = null;
+                    }
+                }
+            } else if ( is_string( $data ) ) {
+                $_sData = sanitize_text_field( $data );
+            } else if ( is_bool( $data ) ) {
+                $_sData = filter_var( $data, FILTER_VALIDATE_BOOLEAN );
+            } else if ( is_numeric( $data ) ) {
+                $_sData = filter_var( $data, FILTER_VALIDATE_INT );
+            } else {
+                $_sData = null;
+            }
+
+            return $_sData;
+        }
+
         private function sanitizeTextAndArray( $data, $key ) {
             if ( is_array( $data ) ) {
                 foreach ( $data as $_key => $value ) {
                     if ( is_array( $value ) ) {
                         $key[$_key] = $this->sanitizeTextAndArray( $value, isset( $key[$_key] ) && is_array( $key[$_key] ) ? $key[$_key] : [] );
                     } else {
-                        if ( 'fromReportingEmail' === $_key ) {
-                            $key[$_key] = $value;
-                        } else {
-                            $key[$_key] = sanitize_text_field( $value );
-                        }
+                        $key[$_key] = sanitize_text_field( $value );
                     }
                 }
             }
@@ -155,9 +188,9 @@ if ( ! class_exists( 'Dusky_Ajax' ) ) {
             }
 
             // Get Array Data;
-            $dusky_settings = $_POST['data'];
+            $dusky_settings = isset( $_POST['data'] ) ? $this->validate_and_sanitize( $_POST['data'] ) : null;
 
-            // Get spacifics item from array $_POST['data'] line number: 158;
+            // Get specifics item from array $_POST['data'] line number: 158;
             $input = isset( $dusky_settings['input'] ) ? $dusky_settings['input'] : null;
             $checkbox = isset( $dusky_settings['checkbox'] ) ? $dusky_settings['checkbox'] : null;
 
@@ -177,27 +210,28 @@ if ( ! class_exists( 'Dusky_Ajax' ) ) {
 
             $_dusky_admin_settings = null;
 
-            function validateArrayIndex( $array, $key, $default = '' ) {
+            function DUSKY_validateArrayIndex( $array, $key, $default = '' ) {
                 return isset( $array[$key] ) ? $array[$key] : $default;
             }
 
             if ( is_array( $adminDarkMode ) ) {
 
                 $admin_input = [
-                    "adminMode"            => validateArrayIndex( $adminDarkMode, "adminMode" ),
-                    "customToggleSize"     => validateArrayIndex( $adminDarkMode, "customToggleSize" ),
-                    "toggleBottomOffset"   => validateArrayIndex( $adminDarkMode, "toggleBottomOffset" ),
-                    "toggleButton"         => validateArrayIndex( $adminDarkMode, "toggleButton" ),
-                    "toggleCustomPosition" => validateArrayIndex( $adminDarkMode, "toggleCustomPosition" ),
-                    "togglePosition"       => validateArrayIndex( $adminDarkMode, "togglePosition" ),
-                    "toggleSideOffset"     => validateArrayIndex( $adminDarkMode, "toggleSideOffset" ),
-                    "toggleStyle"          => validateArrayIndex( $adminDarkMode, "toggleStyle" ),
-                    "toggleSize"           => validateArrayIndex( $adminDarkMode, "toggleSize" ),
+                    "adminMode"            => DUSKY_validateArrayIndex( $adminDarkMode, "adminMode" ),
+                    "customToggleSize"     => DUSKY_validateArrayIndex( $adminDarkMode, "customToggleSize" ),
+                    "toggleBottomOffset"   => DUSKY_validateArrayIndex( $adminDarkMode, "toggleBottomOffset" ),
+                    "toggleButton"         => DUSKY_validateArrayIndex( $adminDarkMode, "toggleButton" ),
+                    "toggleCustomPosition" => DUSKY_validateArrayIndex( $adminDarkMode, "toggleCustomPosition" ),
+                    "togglePosition"       => DUSKY_validateArrayIndex( $adminDarkMode, "togglePosition" ),
+                    "toggleSideOffset"     => DUSKY_validateArrayIndex( $adminDarkMode, "toggleSideOffset" ),
+                    "toggleStyle"          => DUSKY_validateArrayIndex( $adminDarkMode, "toggleStyle" ),
+                    "toggleSize"           => DUSKY_validateArrayIndex( $adminDarkMode, "toggleSize" ),
                 ];
+
                 $admin_checkbox = [
-                    "adminDark"             => validateArrayIndex( $adminDarkMode, "adminDark", true ),
-                    "blockEditorDarkMode"   => validateArrayIndex( $adminDarkMode, "blockEditorDarkMode", false ),
-                    "classicEditorDarkMode" => validateArrayIndex( $adminDarkMode, "classicEditorDarkMode", false ),
+                    "adminDark"             => DUSKY_validateArrayIndex( $adminDarkMode, "adminDark", true ),
+                    "blockEditorDarkMode"   => DUSKY_validateArrayIndex( $adminDarkMode, "blockEditorDarkMode", false ),
+                    "classicEditorDarkMode" => DUSKY_validateArrayIndex( $adminDarkMode, "classicEditorDarkMode", false ),
                 ];
 
                 $validate_input = (array) $this->validate_and_sanitize( $admin_input, 'sanitize_text_field' );
@@ -211,7 +245,7 @@ if ( ! class_exists( 'Dusky_Ajax' ) ) {
                 update_user_meta( get_current_user_id(), 'dusky_admin_settings', $_dusky_admin_settings );
             }
 
-            wp_send_json_success( [$_dusky_settings, $_dusky_admin_settings] );
+            wp_send_json_success( [$_dusky_settings, $_dusky_admin_settings, $dusky_settings] );
         }
 
         private static $instance = null;

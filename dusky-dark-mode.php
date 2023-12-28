@@ -11,18 +11,17 @@
  * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
- * Author:            wpwebdevs
- * Author URI:        https://wpwebdevs.com/
+ * Author:            codeconfig
+ * Author URI:        https://codeconfig.com/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Update URI:
  * Text Domain:       dusky-dark-mode
  * Domain Path:       /languages
  */
 
-defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
+defined( 'ABSPATH' ) or exit( 'Hey, what are you doing here? You silly human!' );
 
-//  Define constand
+//  Define constant
 define( 'DUSKY_VERSION', '1.0.0' );
 define( 'DUSKY_FILE', __FILE__ );
 define( 'DUSKY_PATH', dirname( DUSKY_FILE ) );
