@@ -1,5 +1,5 @@
 === Dusky Dark Mode - The Best Dark Mode Plugin For WordPress ===
-Contributors: wpwebdevs, jakirmithunbd
+Contributors: wpwebdevs, jakirmithunbd, codeconfig
 Tags: dark, wp dark mode, dusk mode, dark mode, night mode, dark theme, dark theme, theme, color, typography
 Requires at least: 5.0
 Tested up to: 6.4

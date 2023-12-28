@@ -1,9 +1,4 @@
 <?php
-
-/**
- * Dusky Dark Mode
- */
-
 /*
  * Plugin Name:       Dusky Dark Mode
  * Plugin URI:
@@ -12,7 +7,7 @@
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            codeconfig
- * Author URI:        https://codeconfig.com/
+ * Author URI:        https://codeconfig.dev/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       dusky-dark-mode
